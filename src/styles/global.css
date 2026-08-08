@@ -1,81 +1,60 @@
-:root {
-	color-scheme: light;
+@import "tailwindcss";
 
-	--bg: #f6fbff;
-	--panel: #fdfbf4;
-	--ink: #170d26;
-	--muted: #675c72;
-	--line: rgb(23 13 38 / 0.22);
-	--line-strong: rgb(23 13 38 / 0.46);
-	--accent: #8b1e2d;
+@theme {
+	--color-bg: #f6fbff;
+	--color-bg-2: #e9f6ff;
+	--color-panel: #fdfbf4;
+	--color-ink: #170d26;
+	--color-ink-soft: #443852;
+	--color-muted: #675c72;
+	--color-line: rgb(23 13 38 / 0.22);
+	--color-line-strong: rgb(23 13 38 / 0.46);
+	--color-accent: #8b1e2d;
+	--color-gold: #986f22;
 
-	--font-serif: Georgia, "Times New Roman", serif;
-	--font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	--font-serif: Georgia, "Times New Roman", Times, serif;
+	--font-ui: Arial, Helvetica, sans-serif;
+	--font-display:
+		Impact, Haettenschweiler, "Arial Narrow Bold", Arial, sans-serif;
 
-	--space-1: 0.25rem;
-	--space-2: 0.5rem;
-	--space-3: 0.75rem;
-	--space-4: 1rem;
-	--space-6: 1.5rem;
-	--space-8: 2rem;
+	--text-brand: clamp(2.6rem, 6vw, 5.3rem);
+	--text-display: clamp(2rem, 5vw, 4rem);
 
-	--radius: 2px;
-	--max-width: 1280px;
+	--shadow-panel: 0 18px 40px rgb(23 13 38 / 0.14);
 }
 
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-}
+@layer base {
+	body {
+		font-family: var(--font-serif);
+		background-color: var(--color-bg);
+		color: var(--color-ink);
+		line-height: 1.65;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+	}
 
-body {
-	margin: 0;
-	min-height: 100vh;
-	background: var(--bg);
-	color: var(--ink);
-	font-family: var(--font-serif);
-	line-height: 1.6;
-	display: flex;
-	flex-direction: column;
-}
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-weight: 700;
+		line-height: 1.05;
+		text-wrap: balance;
+	}
 
-h1,
-h2,
-h3,
-h4 {
-	line-height: 1.15;
-	margin: 0 0 var(--space-3);
-}
+	p {
+		text-wrap: pretty;
+	}
 
-p {
-	margin: 0 0 var(--space-4);
-}
+	::selection {
+		background-color: var(--color-accent);
+		color: var(--color-bg);
+	}
 
-a {
-	color: inherit;
-}
-
-img {
-	max-width: 100%;
-	height: auto;
-}
-
-button,
-input,
-select,
-textarea {
-	font: inherit;
-	color: inherit;
-}
-
-button {
-	cursor: pointer;
-}
-
-:focus-visible {
-	outline: 3px solid var(--accent);
-	outline-offset: 2px;
+	:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 3px;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -89,67 +68,42 @@ button {
 	}
 }
 
-.shell {
+@utility shell {
 	width: 100%;
-	max-width: var(--max-width);
+	max-width: 80rem;
 	margin-inline: auto;
-	padding-inline: var(--space-4);
+	padding-inline: --spacing(6);
 }
 
-.field {
-	display: flex;
-	flex-direction: column;
-	gap: var(--space-1);
-	max-width: 26rem;
+@utility kicker {
+	font-family: var(--font-ui);
+	font-size: 0.74rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--color-gold);
 }
 
-.field input,
-.field select,
-.field textarea {
-	border: 1px solid var(--line-strong);
-	border-radius: var(--radius);
-	background: var(--panel);
-	padding: 0.5rem 0.6rem;
+@utility display-head {
+	font-family: var(--font-display);
+	font-size: var(--text-display);
+	line-height: 0.95;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+	color: var(--color-accent);
 }
 
-.mapExplorer svg {
-	width: 100%;
-	height: auto;
-}
-
-.mapState {
-	fill: var(--panel);
-	stroke: var(--line-strong);
-	stroke-width: 0.5;
-	outline: none;
-}
-
-.mapState:hover {
-	fill: var(--accent);
-}
-
-.skipLink {
-	position: absolute;
-	left: -9999px;
-	top: 0;
-	z-index: 100;
-	background: var(--panel);
-	padding: var(--space-2) var(--space-4);
-}
-
-.skipLink:focus {
-	left: var(--space-4);
-	top: var(--space-2);
-}
-
-.visuallyHidden {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0 0 0 0);
-	white-space: nowrap;
-	border: 0;
+@utility button-ui {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.8rem;
+	border: 1px solid var(--color-ink);
+	padding: 0.52rem 0.95rem;
+	font-family: var(--font-ui);
+	font-size: 0.86rem;
+	text-transform: uppercase;
+	transition:
+		color 160ms ease,
+		background-color 160ms ease;
 }

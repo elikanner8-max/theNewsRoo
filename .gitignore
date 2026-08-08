@@ -29,3 +29,7 @@ ai.md
 *.lock
 *-lock
 *lock.json
+
+*.db
+*.db-shm
+*.db-wal

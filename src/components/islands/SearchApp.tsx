@@ -4,18 +4,22 @@ const SearchApp = () => {
 	const [keyword, setKeyword] = useState("");
 
 	return (
-		<div class="searchApp">
-			<div class="field">
-				<label for="searchKeyword">Keyword</label>
-				<input
-					id="searchKeyword"
-					type="search"
-					value={keyword}
-					onInput={event =>
-						setKeyword((event.target as HTMLInputElement).value)
-					}
-				/>
-			</div>
+		<div class="max-w-xl">
+			<label
+				class="font-ui mb-1 block text-xs font-bold tracking-[0.08em] text-muted uppercase"
+				for="searchKeyword"
+			>
+				Keyword
+			</label>
+			<input
+				id="searchKeyword"
+				type="search"
+				class="w-full border border-ink bg-white/60 px-3 py-2"
+				value={keyword}
+				onInput={event =>
+					setKeyword((event.target as HTMLInputElement).value)
+				}
+			/>
 		</div>
 	);
 };
