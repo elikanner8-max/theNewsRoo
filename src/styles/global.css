@@ -112,6 +112,22 @@ button {
 	padding: 0.5rem 0.6rem;
 }
 
+.mapExplorer svg {
+	width: 100%;
+	height: auto;
+}
+
+.mapState {
+	fill: var(--panel);
+	stroke: var(--line-strong);
+	stroke-width: 0.5;
+	outline: none;
+}
+
+.mapState:hover {
+	fill: var(--accent);
+}
+
 .skipLink {
 	position: absolute;
 	left: -9999px;
