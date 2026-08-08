@@ -4,11 +4,9 @@
 	"exclude": ["dist", "references", "srv"],
 	"compilerOptions": {
 		"jsx": "react-jsx",
-		"jsxImportSource": "preact",
+		"jsxImportSource": "react",
 		"paths": {
-			"~/*": ["./src/*"],
-			"react": ["./node_modules/preact/compat/"],
-			"react-dom": ["./node_modules/preact/compat/"]
+			"~/*": ["./src/*"]
 		}
 	}
 }

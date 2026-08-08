@@ -1,0 +1,30 @@
+---
+interface Props {
+	size?: "sm" | "md" | "lg";
+}
+
+const { size = "md" } = Astro.props;
+
+const markSize = {
+	sm: "h-5 w-5",
+	md: "h-7 w-7",
+	lg: "h-7 w-7 sm:h-9 sm:w-9"
+}[size];
+
+const wordSize = {
+	sm: "text-xl",
+	md: "text-2xl",
+	lg: "text-2xl sm:text-3xl"
+}[size];
+---
+
+<a
+	class="flex min-w-0 shrink items-center gap-3 sm:gap-4"
+	href="/"
+	aria-label="TheNewsRoo home"
+>
+	<span class={`${markSize} block shrink-0 bg-ink`} aria-hidden="true"></span>
+	<span class={`${wordSize} truncate leading-none font-bold tracking-tight`}>
+		TheNewsRoo
+	</span>
+</a>

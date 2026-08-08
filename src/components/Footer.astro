@@ -1,4 +1,5 @@
 ---
+import Logo from "~/components/Logo.astro";
 import { sectionsWithArticles } from "~/data/articles";
 
 const currentYear = new Date().getFullYear();
@@ -68,7 +69,7 @@ const columns = [
 		<div
 			class="mt-10 flex flex-wrap items-baseline justify-between gap-3 border-t border-line pt-6"
 		>
-			<a class="text-xl font-bold" href="/">The NewsRoo</a>
+			<Logo size="sm" />
 			<p class="font-ui text-muted text-sm">
 				© {currentYear} · Democratizing Journalism
 			</p>

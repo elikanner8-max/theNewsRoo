@@ -1,0 +1,43 @@
+---
+interface Props {
+	value?: string;
+	placeholder?: string;
+	class?: string;
+}
+
+const {
+	value = "",
+	placeholder = "Search local reporting",
+	class: className = ""
+} = Astro.props;
+---
+
+<form
+	class={`field-shell focus-within:field-shell-focus ${className}`}
+	action="/search"
+	method="get"
+	role="search"
+>
+	<svg
+		class="text-muted h-3.5 w-3.5 shrink-0"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		aria-hidden="true"
+	>
+		<circle cx="11" cy="11" r="7"></circle>
+		<path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+	</svg>
+
+	<label class="sr-only" for="headerSearch">Search stories</label>
+	<input
+		id="headerSearch"
+		class="font-ui placeholder:text-muted w-full min-w-0 bg-transparent text-xs outline-none"
+		type="search"
+		name="q"
+		value={value}
+		placeholder={placeholder}
+		autocomplete="off"
+	/>
+</form>

@@ -15,7 +15,7 @@ const sectionArticles = articlesInSection(section.slug);
 ---
 
 <BaseLayout
-	title={`${section.label} — The NewsRoo`}
+	title={`${section.label} — TheNewsRoo`}
 	description={`Local reporting filed under ${section.label}.`}
 >
 	<Breadcrumbs
@@ -33,14 +33,14 @@ const sectionArticles = articlesInSection(section.slug);
 		{sectionArticles.map(article => <StoryCard article={article} />)}
 	</div>
 
-	<nav class="mt-12 border-t border-line pt-6" aria-label="Other sections">
+	<nav class="section-block" aria-label="Other sections">
 		<p class="kicker">Other sections</p>
 		<div class="mt-3 flex flex-wrap gap-2">
 			{
 				sectionsWithArticles
 					.filter(other => other.slug !== section.slug)
 					.map(other => (
-						<a class="pill hover:bg-surface-2" href={`/topics/${other.slug}`}>
+						<a class="control hover:bg-surface-2" href={`/topics/${other.slug}`}>
 							{other.label}
 						</a>
 					))

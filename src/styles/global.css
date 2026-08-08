@@ -18,8 +18,8 @@
 
 	--text-brand: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
 
-	--radius-card: 0.875rem;
-	--radius-pill: 999px;
+	--radius-card: 0.75rem;
+	--radius-control: 0.3125rem;
 
 	--shadow-panel: 0 12px 32px rgb(25 23 20 / 0.1);
 }
@@ -87,15 +87,15 @@
 	color: var(--color-gold);
 }
 
-@utility pill {
+@utility control {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	gap: --spacing(2);
-	border-radius: var(--radius-pill);
+	border-radius: var(--radius-control);
 	border: 1px solid var(--color-line);
 	background-color: var(--color-surface);
-	padding: --spacing(2) --spacing(4);
+	padding: --spacing(2) --spacing(3);
 	font-family: var(--font-ui);
 	font-size: 0.85rem;
 	line-height: 1;
@@ -106,7 +106,7 @@
 		color 150ms ease;
 }
 
-@utility pill-active {
+@utility control-active {
 	background-color: var(--color-ink);
 	border-color: var(--color-ink);
 	color: var(--color-bg);
@@ -116,4 +116,32 @@
 	background-color: var(--color-surface-2);
 	border: 1px solid var(--color-line);
 	border-radius: var(--radius-card);
+}
+
+@utility surface {
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-line);
+	border-radius: var(--radius-card);
+	padding: --spacing(5);
+}
+
+@utility section-block {
+	margin-top: --spacing(12);
+	border-top: 1px solid var(--color-line);
+	padding-top: --spacing(8);
+}
+
+@utility field-shell {
+	display: flex;
+	align-items: center;
+	gap: --spacing(2);
+	border-radius: var(--radius-control);
+	border: 1px solid var(--color-line);
+	background-color: var(--color-surface);
+	padding: --spacing(2) --spacing(3);
+	transition: border-color 150ms ease;
+}
+
+@utility field-shell-focus {
+	border-color: var(--color-ink);
 }

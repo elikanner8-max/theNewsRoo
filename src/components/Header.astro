@@ -1,11 +1,15 @@
 ---
+import Logo from "~/components/Logo.astro";
+import SearchField from "~/components/SearchField.astro";
 import MobileNav from "~/components/islands/MobileNav";
+import TodayDate from "~/components/islands/TodayDate";
 import { sectionsWithArticles } from "~/data/articles";
 
 const primaryLinks = [
 	{ href: "/", label: "Home" },
 	{ href: "/map", label: "Map" },
-	{ href: "/search", label: "Search" }
+	{ href: "/search", label: "Search" },
+	{ href: "/submit", label: "Submit a story" }
 ];
 
 const sectionLinks = sectionsWithArticles.map(section => ({
@@ -23,25 +27,62 @@ const isActive = (href: string) => {
 			return pathname.startsWith(href);
 	}
 };
+
+const plainLink =
+	"font-ui text-sm whitespace-nowrap text-ink-soft transition-colors hover:text-ink";
+
+const buildDateLabel = new Intl.DateTimeFormat("en-US", {
+	weekday: "long",
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+	timeZone: "UTC"
+}).format(new Date());
 ---
 
-<header class="sticky top-0 z-30 border-b border-line bg-bg/90 backdrop-blur">
-	<div class="shell flex items-center gap-4 py-3">
+<header class="sticky top-0 z-30 border-b border-line bg-bg">
+	<div class="shell grid grid-cols-[auto_1fr_auto] items-center gap-4 py-1">
 		<MobileNav
-			client:idle
+			client:load
 			primaryLinks={primaryLinks}
 			sectionLinks={sectionLinks}
 		/>
 
-		<a class="text-brand shrink-0 font-bold tracking-tight" href="/">
-			The NewsRoo
-		</a>
+		<a class={`${plainLink} hidden md:inline`} href="/submit">Submit a story</a>
 
-		<nav class="ml-2 hidden items-center gap-1 md:flex" aria-label="Primary">
+		<div class="relative h-7">
+			<SearchField
+				class="absolute top-0 left-1/2 h-7 w-full max-w-[calc(100vw-3rem)] -translate-x-1/2 py-0 transition-all duration-200 focus-within:z-40 focus-within:h-10 focus-within:shadow-panel md:w-64 md:focus-within:w-[min(52rem,calc(100vw-3rem))]"
+			/>
+		</div>
+
+		<a
+			class={`${plainLink} ${isActive("/map") ? "font-semibold text-ink" : ""}`}
+			href="/map"
+			aria-current={isActive("/map") ? "page" : undefined}
+		>
+			Map
+		</a>
+	</div>
+
+	<div class="shell flex justify-center py-1">
+		<Logo size="lg" />
+	</div>
+
+	<div class="shell flex items-center gap-6 py-1">
+		<nav
+			class="hidden flex-1 justify-between gap-x-4 overflow-x-auto md:flex [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+			aria-label="Categories"
+		>
 			{
-				primaryLinks.map(link => (
+				sectionLinks.map(link => (
 					<a
-						class:list={["pill", isActive(link.href) && "pill-active"]}
+						class:list={[
+							"font-ui shrink-0 text-[0.65rem] font-semibold tracking-[0.14em] whitespace-nowrap uppercase transition-colors",
+							isActive(link.href)
+								? "text-accent"
+								: "text-muted hover:text-ink"
+						]}
 						href={link.href}
 						aria-current={isActive(link.href) ? "page" : undefined}
 					>
@@ -51,34 +92,10 @@ const isActive = (href: string) => {
 			}
 		</nav>
 
-		<a
-			class="pill ml-auto shrink-0 border-ink bg-ink whitespace-nowrap text-bg hover:bg-ink-soft"
-			href="/submit"
+		<p
+			class="font-ui text-muted ml-auto shrink-0 text-[0.65rem] tracking-[0.08em] whitespace-nowrap uppercase"
 		>
-			<span class="sm:hidden">Submit</span>
-			<span class="hidden sm:inline">Submit a story</span>
-		</a>
+			<TodayDate client:load fallback={buildDateLabel} />
+		</p>
 	</div>
-
-	<nav
-		class="border-t border-line md:block"
-		aria-label="Sections"
-	>
-		<div class="shell flex gap-1 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-			{
-				sectionLinks.map(link => (
-					<a
-						class:list={[
-							"font-ui shrink-0 rounded-full px-3 py-1.5 text-sm whitespace-nowrap text-ink-soft hover:bg-surface-2",
-							isActive(link.href) && "bg-surface-2 font-semibold text-ink"
-						]}
-						href={link.href}
-						aria-current={isActive(link.href) ? "page" : undefined}
-					>
-						{link.label}
-					</a>
-				))
-			}
-		</div>
-	</nav>
 </header>

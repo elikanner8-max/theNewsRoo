@@ -1,0 +1,33 @@
+---
+import StoryCard from "~/components/StoryCard.astro";
+import CarouselControls from "~/components/islands/CarouselControls";
+import type { Article } from "~/data/articles";
+
+interface Props {
+	title: string;
+	articles: Article[];
+	trackId?: string;
+}
+
+const { title, articles, trackId = "storyCarousel" } = Astro.props;
+---
+
+<section aria-label={title}>
+	<div class="flex flex-wrap items-baseline justify-between gap-3">
+		<h2 class="text-2xl font-bold">{title}</h2>
+		<CarouselControls client:idle trackId={trackId} />
+	</div>
+
+	<ul
+		id={trackId}
+		class="mt-6 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+	>
+		{
+			articles.map(article => (
+				<li class="w-[84%] shrink-0 snap-start sm:w-[46%] lg:w-[30%]">
+					<StoryCard article={article} />
+				</li>
+			))
+		}
+	</ul>
+</section>

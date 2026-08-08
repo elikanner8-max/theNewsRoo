@@ -19,5 +19,5 @@ app.get("/articles", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`databse is running on http://localhost:${port}`);
+	console.log(`databse is running on http://localhost:${port}`);
 });
