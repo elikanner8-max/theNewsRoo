@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-	--color-bg: #f6fbff;
-	--color-bg-2: #e9f6ff;
-	--color-panel: #fdfbf4;
-	--color-ink: #170d26;
-	--color-ink-soft: #443852;
-	--color-muted: #675c72;
-	--color-line: rgb(23 13 38 / 0.22);
-	--color-line-strong: rgb(23 13 38 / 0.46);
+	--color-bg: #faf9f6;
+	--color-surface: #ffffff;
+	--color-surface-2: #f0eee8;
+	--color-ink: #191714;
+	--color-ink-soft: #4a453e;
+	--color-muted: #7a736a;
+	--color-line: rgb(25 23 20 / 0.12);
+	--color-line-strong: rgb(25 23 20 / 0.28);
 	--color-accent: #8b1e2d;
-	--color-gold: #986f22;
+	--color-gold: #8a6a2f;
 
 	--font-serif: Georgia, "Times New Roman", Times, serif;
-	--font-ui: Arial, Helvetica, sans-serif;
-	--font-display:
-		Impact, Haettenschweiler, "Arial Narrow Bold", Arial, sans-serif;
+	--font-ui:
+		ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-	--text-brand: clamp(2.6rem, 6vw, 5.3rem);
-	--text-display: clamp(2rem, 5vw, 4rem);
+	--text-brand: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
 
-	--shadow-panel: 0 18px 40px rgb(23 13 38 / 0.14);
+	--radius-card: 0.875rem;
+	--radius-pill: 999px;
+
+	--shadow-panel: 0 12px 32px rgb(25 23 20 / 0.1);
 }
 
 @layer base {
@@ -38,7 +39,8 @@
 	h3,
 	h4 {
 		font-weight: 700;
-		line-height: 1.05;
+		line-height: 1.08;
+		letter-spacing: -0.01em;
 		text-wrap: balance;
 	}
 
@@ -48,12 +50,13 @@
 
 	::selection {
 		background-color: var(--color-accent);
-		color: var(--color-bg);
+		color: var(--color-surface);
 	}
 
 	:focus-visible {
 		outline: 2px solid var(--color-accent);
 		outline-offset: 3px;
+		border-radius: 4px;
 	}
 }
 
@@ -70,40 +73,47 @@
 
 @utility shell {
 	width: 100%;
-	max-width: 80rem;
+	max-width: 78rem;
 	margin-inline: auto;
 	padding-inline: --spacing(6);
 }
 
 @utility kicker {
 	font-family: var(--font-ui);
-	font-size: 0.74rem;
-	font-weight: 700;
-	letter-spacing: 0.1em;
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--color-gold);
 }
 
-@utility display-head {
-	font-family: var(--font-display);
-	font-size: var(--text-display);
-	line-height: 0.95;
-	letter-spacing: 0.01em;
-	text-transform: uppercase;
-	color: var(--color-accent);
-}
-
-@utility button-ui {
+@utility pill {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 2.8rem;
-	border: 1px solid var(--color-ink);
-	padding: 0.52rem 0.95rem;
+	gap: --spacing(2);
+	border-radius: var(--radius-pill);
+	border: 1px solid var(--color-line);
+	background-color: var(--color-surface);
+	padding: --spacing(2) --spacing(4);
 	font-family: var(--font-ui);
-	font-size: 0.86rem;
-	text-transform: uppercase;
+	font-size: 0.85rem;
+	line-height: 1;
+	color: var(--color-ink);
 	transition:
-		color 160ms ease,
-		background-color 160ms ease;
+		background-color 150ms ease,
+		border-color 150ms ease,
+		color 150ms ease;
+}
+
+@utility pill-active {
+	background-color: var(--color-ink);
+	border-color: var(--color-ink);
+	color: var(--color-bg);
+}
+
+@utility placeholder-tile {
+	background-color: var(--color-surface-2);
+	border: 1px solid var(--color-line);
+	border-radius: var(--radius-card);
 }

@@ -1,9 +1,80 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import Breadcrumbs from "~/components/Breadcrumbs.astro";
+import Byline from "~/components/Byline.astro";
+import StoryCard from "~/components/StoryCard.astro";
+import {
+	articleBody,
+	articles,
+	articlesInSection,
+	sectionLabel
+} from "~/data/articles";
 
-export const getStaticPaths = () => [];
+export const getStaticPaths = () =>
+	articles.map(article => ({
+		params: { slug: article.slug },
+		props: { article }
+	}));
+
+const { article } = Astro.props;
+const label = sectionLabel(article.sectionSlug);
+const sectionHref = `/topics/${article.sectionSlug}`;
+
+const relatedArticles = articlesInSection(article.sectionSlug)
+	.filter(other => other.slug !== article.slug)
+	.slice(0, 3);
 ---
 
-<BaseLayout title="Article">
-	<h1 class="text-4xl">Article</h1>
+<BaseLayout title={article.title} description={article.dek}>
+	<Breadcrumbs
+		crumbs={[
+			{ href: "/", label: "Home" },
+			{ href: sectionHref, label },
+			{ label: article.title }
+		]}
+	/>
+
+	<article class="mx-auto mt-6 max-w-[44rem]">
+		<a class="kicker hover:text-accent" href={sectionHref}>{label}</a>
+
+		<h1 class="mt-2 text-4xl font-bold md:text-5xl">{article.title}</h1>
+
+		<p class="text-ink-soft mt-4 text-xl leading-relaxed">{article.dek}</p>
+
+		<div class="mt-6 border-y border-line py-3">
+			<Byline article={article} />
+		</div>
+
+		<div
+			class="placeholder-tile mt-8 aspect-[16/9] w-full"
+			role="img"
+			aria-label="Image placeholder"
+		>
+		</div>
+
+		<div class="mt-8 flex flex-col gap-6 text-lg leading-relaxed">
+			{articleBody.map(paragraph => <p>{paragraph}</p>)}
+		</div>
+
+		<nav
+			class="mt-10 flex flex-wrap gap-3 border-t border-line pt-6"
+			aria-label="Continue reading"
+		>
+			<a class="pill" href="/">← Back to home</a>
+			<a class="pill" href={sectionHref}>More in {label}</a>
+		</nav>
+	</article>
+
+	{
+		relatedArticles.length > 0 && (
+			<section class="mt-12 border-t border-line pt-8">
+				<h2 class="text-2xl font-bold">More in {label}</h2>
+				<div class="mt-6 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+					{relatedArticles.map(related => (
+						<StoryCard article={related} />
+					))}
+				</div>
+			</section>
+		)
+	}
 </BaseLayout>

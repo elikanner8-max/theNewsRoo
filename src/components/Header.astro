@@ -1,16 +1,21 @@
 ---
 import MobileNav from "~/components/islands/MobileNav";
+import { sectionsWithArticles } from "~/data/articles";
 
-const navLinks = [
+const primaryLinks = [
 	{ href: "/", label: "Home" },
 	{ href: "/map", label: "Map" },
-	{ href: "/search", label: "Search" },
-	{ href: "/submit", label: "Submit" }
+	{ href: "/search", label: "Search" }
 ];
+
+const sectionLinks = sectionsWithArticles.map(section => ({
+	href: `/topics/${section.slug}`,
+	label: section.label
+}));
 
 const pathname = Astro.url.pathname;
 
-const isActiveLink = (href: string) => {
+const isActive = (href: string) => {
 	switch (href) {
 		case "/":
 			return pathname === "/";
@@ -18,57 +23,62 @@ const isActiveLink = (href: string) => {
 			return pathname.startsWith(href);
 	}
 };
-
-const buildDate = new Date();
-const buildDateLabel = new Intl.DateTimeFormat("en-US", {
-	weekday: "long",
-	year: "numeric",
-	month: "long",
-	day: "numeric",
-	timeZone: "UTC"
-}).format(buildDate);
-const buildDateIso = buildDate.toISOString().slice(0, 10);
 ---
 
-<header class="border-b-2 border-ink bg-bg">
-	<div
-		class="shell grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 pt-4 pb-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]"
-	>
-		<div class="flex items-center gap-3 justify-self-start">
-			<MobileNav client:idle links={navLinks} />
-			<time class="hidden text-[0.92rem] whitespace-nowrap md:inline" datetime={buildDateIso}>
-				{buildDateLabel}
-			</time>
-		</div>
+<header class="sticky top-0 z-30 border-b border-line bg-bg/90 backdrop-blur">
+	<div class="shell flex items-center gap-4 py-3">
+		<MobileNav
+			client:idle
+			primaryLinks={primaryLinks}
+			sectionLinks={sectionLinks}
+		/>
 
-		<div class="text-right md:col-start-2 md:text-center">
-			<a class="block text-brand leading-[0.92] font-extrabold" href="/">
-				The NewsRoo
-			</a>
-			<p class="mt-1 text-muted italic">Democratizing Journalism</p>
-		</div>
+		<a class="text-brand shrink-0 font-bold tracking-tight" href="/">
+			The NewsRoo
+		</a>
 
-		<div class="hidden md:block"></div>
-
-		<nav class="col-span-full mt-2 hidden justify-center md:flex" aria-label="Primary">
-			<ul class="flex list-none flex-wrap justify-center gap-1">
-				{
-					navLinks.map(link => (
-						<li>
-							<a
-								class:list={[
-									"button-ui min-h-[3.05rem] px-5 font-bold hover:bg-ink hover:text-bg",
-									isActiveLink(link.href) && "bg-ink text-bg"
-								]}
-								href={link.href}
-								aria-current={isActiveLink(link.href) ? "page" : undefined}
-							>
-								{link.label}
-							</a>
-						</li>
-					))
-				}
-			</ul>
+		<nav class="ml-2 hidden items-center gap-1 md:flex" aria-label="Primary">
+			{
+				primaryLinks.map(link => (
+					<a
+						class:list={["pill", isActive(link.href) && "pill-active"]}
+						href={link.href}
+						aria-current={isActive(link.href) ? "page" : undefined}
+					>
+						{link.label}
+					</a>
+				))
+			}
 		</nav>
+
+		<a
+			class="pill ml-auto shrink-0 border-ink bg-ink whitespace-nowrap text-bg hover:bg-ink-soft"
+			href="/submit"
+		>
+			<span class="sm:hidden">Submit</span>
+			<span class="hidden sm:inline">Submit a story</span>
+		</a>
 	</div>
+
+	<nav
+		class="border-t border-line md:block"
+		aria-label="Sections"
+	>
+		<div class="shell flex gap-1 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+			{
+				sectionLinks.map(link => (
+					<a
+						class:list={[
+							"font-ui shrink-0 rounded-full px-3 py-1.5 text-sm whitespace-nowrap text-ink-soft hover:bg-surface-2",
+							isActive(link.href) && "bg-surface-2 font-semibold text-ink"
+						]}
+						href={link.href}
+						aria-current={isActive(link.href) ? "page" : undefined}
+					>
+						{link.label}
+					</a>
+				))
+			}
+		</div>
+	</nav>
 </header>

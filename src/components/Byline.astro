@@ -1,0 +1,25 @@
+---
+import type { Article } from "~/data/articles";
+
+interface Props {
+	article: Article;
+}
+
+const { article } = Astro.props;
+
+const dateLabel = new Intl.DateTimeFormat("en-US", {
+	month: "short",
+	day: "numeric",
+	timeZone: "UTC"
+}).format(new Date(`${article.publishedAt}T00:00:00Z`));
+---
+
+<p class="font-ui text-muted flex flex-wrap items-center gap-x-2 text-xs">
+	<span class="text-ink-soft font-medium">{article.byline}</span>
+	<span aria-hidden="true">·</span>
+	<span>{article.location}</span>
+	<span aria-hidden="true">·</span>
+	<time datetime={article.publishedAt}>{dateLabel}</time>
+	<span aria-hidden="true">·</span>
+	<span>{article.readMinutes} min</span>
+</p>

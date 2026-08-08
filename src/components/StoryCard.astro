@@ -1,0 +1,53 @@
+---
+import Byline from "~/components/Byline.astro";
+import { sectionLabel, type Article } from "~/data/articles";
+
+interface Props {
+	article: Article;
+	variant?: "lead" | "standard" | "list";
+}
+
+const { article, variant = "standard" } = Astro.props;
+const href = `/articles/${article.slug}`;
+const sectionHref = `/topics/${article.sectionSlug}`;
+
+const titleSize = {
+	lead: "text-3xl md:text-4xl",
+	standard: "text-xl",
+	list: "text-lg"
+}[variant];
+
+const tileRatio = {
+	lead: "aspect-[2/1] max-h-[20rem]",
+	standard: "aspect-[3/2]",
+	list: ""
+}[variant];
+---
+
+<article class="group flex flex-col gap-2.5">
+	{
+		variant !== "list" && (
+			<a href={href} tabindex="-1" aria-hidden="true" class="block">
+				<span class={`placeholder-tile block w-full ${tileRatio}`} />
+			</a>
+		)
+	}
+
+	<a class="kicker w-fit hover:text-accent" href={sectionHref}>
+		{sectionLabel(article.sectionSlug)}
+	</a>
+
+	<h3 class={`${titleSize} font-bold`}>
+		<a href={href} class="decoration-accent group-hover:underline">
+			{article.title}
+		</a>
+	</h3>
+
+	{
+		variant !== "list" && (
+			<p class="text-ink-soft max-w-prose">{article.dek}</p>
+		)
+	}
+
+	<Byline article={article} />
+</article>
