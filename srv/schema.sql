@@ -4,5 +4,8 @@ CREATE TABLE articles (
 	lat REAL NOT NULL,
 	long REAL NOT NULL,
 	keywords TEXT NOT NULL,
+	section TEXT NOT NULL,
+	desc TEXT,
+	timestamp DATETIME NOT NULL,
 	body TEXT UNIQUE NOT NULL
 );
