@@ -2,4 +2,5 @@
 
 Nam libero tempore cum soluta nobis est eligendi optio cumque nihil.
 
-Community groups say the new program is already helping them reach residents who were previously left out.
+Community groups say the new program is already helping them reach residents who
+were previously left out.

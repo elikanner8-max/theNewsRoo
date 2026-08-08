@@ -1,4 +1,9 @@
-import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
+import {
+	ComposableMap,
+	Geographies,
+	Geography,
+	ZoomableGroup
+} from "react-simple-maps";
 import { useEffect, useState } from "react";
 
 const US_STATES_TOPOJSON = "/us-states-10m.json";
@@ -24,7 +29,7 @@ const MapExplorer = () => {
 			onMouseLeave={() => setIsHovering(false)}
 		>
 			<ComposableMap projection="geoAlbersUsa" width={975} height={610}>
-				<ZoomableGroup >
+				<ZoomableGroup>
 					<Geographies geography={US_STATES_TOPOJSON}>
 						{({ geographies }) =>
 							geographies.map(geography => (
