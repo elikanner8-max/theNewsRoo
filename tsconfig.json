@@ -5,9 +5,8 @@
 	"compilerOptions": {
 		"jsx": "react-jsx",
 		"jsxImportSource": "preact",
-		"baseUrl": ".",
 		"paths": {
-			"~/*": ["src/*"],
+			"~/*": ["./src/*"],
 			"react": ["./node_modules/preact/compat/"],
 			"react-dom": ["./node_modules/preact/compat/"]
 		}

@@ -1,20 +1,23 @@
-import { handleHealth } from "./routes/health";
+import express, { Application, Request, Response } from "express";
+import * as sqlite3 from "sqlite3";
 
-const PORT = Number(Bun.env.PORT ?? 3001);
+const app: Application = express();
+const port = 3000;
 
-const notFound = () => new Response("Not Found", { status: 404 });
+app.use(express.json());
 
-const route = (request: Request) => {
-	const { pathname } = new URL(request.url);
+const db = new sqlite3.Database("demo.db");
 
-	switch (pathname) {
-		case "/health":
-			return handleHealth();
-		default:
-			return notFound();
-	}
-};
+app.get("/articles", (req, res) => {
+	db.all("SELECT * FROM articles", (err, rows) => {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		res.json(rows);
+	});
+});
 
-Bun.serve({ port: PORT, fetch: route });
-
-console.log(`api listening on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`databse is running on http://localhost:${port}`);
+});
