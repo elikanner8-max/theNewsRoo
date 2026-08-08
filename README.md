@@ -18,19 +18,18 @@ Games and video support the broader product vision, but a full multi-game platfo
 
 ## 2. Feature list
 
-### P0 — Required for MVP launch
+### P-1 — Investor Demo
 
-1. **Responsive public website**
+1. **Responsive private website**
    - Desktop, tablet, and mobile layouts
    - Global header, navigation, footer, and accessible mobile navigation
    - Pages for Home, Map, Search Results, Article, Submit, About, Contact, Privacy, Terms, Submission Rules, and Accessibility
 
-2. **Curated home page**
-   - Featured and recent stories
-   - Story groups based on common civic issues
-   - Dedicated Good News group
+
+2. **"Curated" home page**
+   - Some news groups, "featured" stories (statically set)
    - Story cards with headline, summary, date, author, publisher, location, image, and tags
-   - Editorial control over ordering and featured placement
+
 
 3. **Article reading experience**
    - Headline, deck/summary, author/byline, publisher, publication date, dateline/location, hero image, body, article type, and tags
@@ -39,12 +38,14 @@ Games and video support the broader product vision, but a full multi-game platfo
    - Related stories based on location and tags
    - Corrections/update note support
 
-4. **Search and filtering**
-   - Full-text keyword search
+4. **The Apperance of Search and filtering**
+   - Full-text keyword search--can only work for statically set keywords. Don't actually need an algorithim. 
    - Filters for topic/tag, location, author, article type, and publication date/date range
    - Sort by newest and relevance
    - Clear empty state and reset-filters action
    - Searchable section links such as Politics, Business, Health, Science, Education, Art/Culture, Sports, and Opinion
+   - Buttons with no functionallity fine. 
+
 
 5. **Interactive United States map**
    - Story markers clustered at national/state or regional zoom levels
@@ -54,41 +55,61 @@ Games and video support the broader product vision, but a full multi-game platfo
    - Selecting a story opens its article page
    - List-based fallback for keyboard, screen-reader, and low-bandwidth users
 
-6. **Accounts and authentication**
+
+### P0 — Required for MVP launch
+
+
+1. **Actually Curated home page**
+   - Featured and recent stories
+   - Story groups based on common civic issues
+   - Dedicated Good News group
+   - Story cards with headline, summary, date, author, publisher, location, image, and tags
+   - Editorial control over ordering and featured placement
+
+
+2. **Proper Search and filtering**
+   - Full-text keyword search
+   - Filters for topic/tag, location, author, article type, and publication date/date range
+   - Sort by newest and relevance
+   - Clear empty state and reset-filters action
+   - Searchable section links such as Politics, Business, Health, Science, Education, Art/Culture, Sports, and Opinion
+
+
+3. **Accounts and authentication** 
    - Email/password or passwordless sign-in
    - Email verification, password reset, sign-out, and session management
    - Roles: Reader, Contributor, Editor, and Administrator
    - Public browsing requires no account
 
-7. **Article submissions**
+4. **Article submissions**
    - Authenticated contributor submission form
    - Fields: email/account, display name/byline, contributor location, publisher or freelance status, story location, publication date, headline, summary, article body, sources/citations, tags, article type, rights declaration, and image/upload rights
    - Save draft, preview, submit, confirmation, and status tracking
    - Required agreement to submission rules and content/license terms
    - Rate limiting, spam protection, file validation, and server-side validation
 
-8. **Editorial CMS and review workflow**
+5. **Editorial CMS and review workflow**
    - Create, edit, preview, publish, unpublish, schedule, archive, and correct articles
    - Submission states: Draft, Submitted, In Review, Changes Requested, Accepted, Rejected, Scheduled, Published, and Archived
    - Editors can assign reviewers, leave internal notes, request changes, and notify contributors
    - Manage authors, publishers, locations, tags, topic hierarchy, article types, media, and home-page placement
    - Preserve an audit trail of status and editorial changes
 
-9. **Content integrity and moderation**
+6. **Content integrity and moderation**
    - Clear distinction between News, Analysis, Opinion, and Good News
    - Source and rights declarations required for submissions
    - Editor approval required before publication
    - Report-content/contact mechanism
    - Correction, takedown, copyright, privacy, and abuse processes
 
-10. **SEO, sharing, and discovery basics**
+7. **SEO, sharing, and discovery basics**
     - Human-readable URLs
     - Unique page titles and descriptions
     - Open Graph/social images
     - Article, author, publisher, and breadcrumb structured data where applicable
     - XML sitemap, robots controls, canonical URLs, and RSS feed
 
-11. **Operations and analytics**
+8. **Operations and analytics**
     - Privacy-respecting analytics for page views, searches, filters, map use, article reads, sign-ups, and submission funnel
     - Error monitoring, uptime monitoring, backups, and CMS activity logs
     - Cookie/consent behavior appropriate to the analytics and services actually used
