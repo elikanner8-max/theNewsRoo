@@ -37,6 +37,7 @@ const MapExplorer = () => {
 							))
 						}
 					</Geographies>
+					{/* for each article in the currently loaded article group (by default all articles) add a marker with the location of the article's coordinates to the map. Store a hashmap of marker coordinates and reptitions of that coordinate. Change marker size depending on marker coordinate instances. When clicking on a state, calculate on client which articles are in there.   */}
 				</ZoomableGroup>
 			</ComposableMap>
 		</div>
