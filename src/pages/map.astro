@@ -1,0 +1,9 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import MapExplorer from "~/components/islands/MapExplorer";
+---
+
+<BaseLayout title="Map">
+	<h1>Map</h1>
+	<MapExplorer client:only="preact" />
+</BaseLayout>

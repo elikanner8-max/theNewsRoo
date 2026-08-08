@@ -1,0 +1,86 @@
+---
+import MobileNav from "~/components/islands/MobileNav";
+
+const navLinks = [
+	{ href: "/", label: "Home" },
+	{ href: "/map", label: "Map" },
+	{ href: "/search", label: "Search" },
+	{ href: "/submit", label: "Submit" }
+];
+
+const pathname = Astro.url.pathname;
+
+const isActiveLink = (href: string) => {
+	switch (href) {
+		case "/":
+			return pathname === "/";
+		default:
+			return pathname.startsWith(href);
+	}
+};
+---
+
+<header class="siteHeader">
+	<div class="shell headerBar">
+		<a class="brand" href="/">The NewsRoo</a>
+
+		<nav aria-label="Primary">
+			<ul>
+				{
+					navLinks.map(link => (
+						<li>
+							<a
+								href={link.href}
+								aria-current={
+									isActiveLink(link.href) ? "page" : undefined
+								}
+							>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<MobileNav client:idle links={navLinks} />
+	</div>
+</header>
+
+<style>
+	.siteHeader {
+		border-bottom: 1px solid var(--line);
+	}
+
+	.headerBar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-4);
+		padding-block: var(--space-4);
+	}
+
+	.brand {
+		font-size: 1.25rem;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		gap: var(--space-4);
+		margin: 0;
+		padding: 0;
+	}
+
+	a[aria-current="page"] {
+		text-decoration: underline;
+	}
+
+	@media (max-width: 40rem) {
+		nav {
+			display: none;
+		}
+	}
+</style>

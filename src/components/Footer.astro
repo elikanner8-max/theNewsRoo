@@ -1,0 +1,23 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="siteFooter">
+	<div class="shell">
+		<p>© {currentYear} The NewsRoo</p>
+	</div>
+</footer>
+
+<style>
+	.siteFooter {
+		margin-top: auto;
+		border-top: 1px solid var(--line);
+		padding-block: var(--space-6);
+		font-size: 0.85rem;
+		color: var(--muted);
+	}
+
+	p {
+		margin: 0;
+	}
+</style>
