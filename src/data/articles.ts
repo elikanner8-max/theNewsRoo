@@ -12,6 +12,7 @@ export interface Article {
 	location: string;
 	publishedAt: string;
 	readMinutes: number;
+	body: string;
 }
 
 export const sections: Section[] = [
@@ -43,7 +44,8 @@ export const articles: Article[] = [
 		byline: "Lorem Ipsum",
 		location: "Toledo, Ohio",
 		publishedAt: "2026-08-08",
-		readMinutes: 6
+		readMinutes: 6,
+		body: "Y29udGVudC9hcnRpY2xlcy9sb3JlbS1pcHN1bS1kb2xvci1zaXQtYW1ldC5tZA=="
 	},
 	{
 		slug: "ut-enim-ad-minim-veniam",
@@ -53,7 +55,8 @@ export const articles: Article[] = [
 		byline: "Dolor Amet",
 		location: "Mesa, Arizona",
 		publishedAt: "2026-08-08",
-		readMinutes: 4
+		readMinutes: 4,
+		body: "Y29udGVudC9hcnRpY2xlcy91dC1lbmltLWFkLW1pbmltLXZlbmlhbS5tZA=="
 	},
 	{
 		slug: "duis-aute-irure-dolor",
@@ -63,7 +66,8 @@ export const articles: Article[] = [
 		byline: "Consectetur Elit",
 		location: "Cedar Rapids, Iowa",
 		publishedAt: "2026-08-07",
-		readMinutes: 5
+		readMinutes: 5,
+		body: "Y29udGVudC9hcnRpY2xlcy9kdWlzLWF1dGUtaXJ1cmUtZG9sb3IubWQ="
 	},
 	{
 		slug: "excepteur-sint-occaecat",
@@ -73,7 +77,8 @@ export const articles: Article[] = [
 		byline: "Magna Aliqua",
 		location: "Greenville, South Carolina",
 		publishedAt: "2026-08-07",
-		readMinutes: 3
+		readMinutes: 3,
+		body: "Y29udGVudC9hcnRpY2xlcy9leGNlcHRldXItc2ludC1vY2NhZWNhdC5tZA=="
 	},
 	{
 		slug: "sed-ut-perspiciatis-unde",
@@ -83,7 +88,8 @@ export const articles: Article[] = [
 		byline: "Veniam Quis",
 		location: "Missoula, Montana",
 		publishedAt: "2026-08-06",
-		readMinutes: 7
+		readMinutes: 7,
+		body: "Y29udGVudC9hcnRpY2xlcy9zZWQtdXQtcGVyc3BpY2lhdGlzLXVuZGUubWQ="
 	},
 	{
 		slug: "nemo-enim-ipsam-voluptatem",
@@ -93,7 +99,8 @@ export const articles: Article[] = [
 		byline: "Ipsum Dolor",
 		location: "Asheville, North Carolina",
 		publishedAt: "2026-08-06",
-		readMinutes: 4
+		readMinutes: 4,
+		body: "Y29udGVudC9hcnRpY2xlcy9uZW1vLWVuaW0taXBzYW0tdm9sdXB0YXRlbS5tZA=="
 	},
 	{
 		slug: "at-vero-eos-et-accusamus",
@@ -103,7 +110,8 @@ export const articles: Article[] = [
 		byline: "Sit Amet",
 		location: "Erie, Pennsylvania",
 		publishedAt: "2026-08-05",
-		readMinutes: 3
+		readMinutes: 3,
+		body: "Y29udGVudC9hcnRpY2xlcy9hdC12ZXJvLWVvcy1ldC1hY2N1c2FtdXMubWQ="
 	},
 	{
 		slug: "quis-autem-vel-eum-iure",
@@ -113,7 +121,8 @@ export const articles: Article[] = [
 		byline: "Adipiscing Elit",
 		location: "Bangor, Maine",
 		publishedAt: "2026-08-05",
-		readMinutes: 2
+		readMinutes: 2,
+		body: "Y29udGVudC9hcnRpY2xlcy9xdWlzLWF1dGVtLXZlbC1ldW0taXVyZS5tZA=="
 	},
 	{
 		slug: "temporibus-autem-quibusdam",
@@ -123,7 +132,8 @@ export const articles: Article[] = [
 		byline: "Labore Dolore",
 		location: "Flint, Michigan",
 		publishedAt: "2026-08-04",
-		readMinutes: 5
+		readMinutes: 5,
+		body: "Y29udGVudC9hcnRpY2xlcy90ZW1wb3JpYnVzLWF1dGVtLXF1aWJ1c2RhbS5tZA=="
 	},
 	{
 		slug: "nam-libero-tempore-cum",
@@ -133,7 +143,8 @@ export const articles: Article[] = [
 		byline: "Quis Nostrud",
 		location: "Boise, Idaho",
 		publishedAt: "2026-08-04",
-		readMinutes: 4
+		readMinutes: 4,
+		body: "Y29udGVudC9hcnRpY2xlcy9uYW0tbGliZXJvLXRlbXBvcmUtY3VtLm1k"
 	},
 	{
 		slug: "itaque-earum-rerum-hic",
@@ -143,7 +154,8 @@ export const articles: Article[] = [
 		byline: "Aliquip Commodo",
 		location: "Wichita, Kansas",
 		publishedAt: "2026-08-03",
-		readMinutes: 6
+		readMinutes: 6,
+		body: "Y29udGVudC9hcnRpY2xlcy9pdGFxdWUtZWFydW0tcmVydW0taGljLm1k"
 	},
 	{
 		slug: "et-harum-quidem-rerum",
@@ -153,7 +165,8 @@ export const articles: Article[] = [
 		byline: "Voluptate Velit",
 		location: "Chattanooga, Tennessee",
 		publishedAt: "2026-08-03",
-		readMinutes: 3
+		readMinutes: 3,
+		body: "Y29udGVudC9hcnRpY2xlcy9ldC1oYXJ1bS1xdWlkZW0tcmVydW0ubWQ="
 	}
 ];
 
