@@ -7,13 +7,13 @@ import {
 	latestArticles,
 	moreArticles,
 	secondaryArticles
-} from "~/data/articles";
+} from "~/lib/articles";
 
-const carouselArticles = articles.slice(0, 6);
+const carouselArticles = articles;
 ---
 
 <BaseLayout title="TheNewsRoo">
-	<StoryCarousel title="Local News" articles={carouselArticles} />
+	<StoryCarousel title="Local News" articles={carouselArticles} rankByLocality />
 
 	<div class="section-block grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
 		<section>

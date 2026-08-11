@@ -1,20 +1,30 @@
 ---
 import StoryCard from "~/components/StoryCard.astro";
 import CarouselControls from "~/components/islands/CarouselControls";
-import type { Article } from "~/data/articles";
+import LocalRanker from "~/components/islands/LocalRanker";
+import type { Article } from "~/lib/articles";
 
 interface Props {
 	title: string;
 	articles: Article[];
 	trackId?: string;
+	rankByLocality?: boolean;
 }
 
-const { title, articles, trackId = "storyCarousel" } = Astro.props;
+const {
+	title,
+	articles,
+	trackId = "storyCarousel",
+	rankByLocality = false
+} = Astro.props;
 ---
 
 <section aria-label={title}>
 	<div class="flex flex-wrap items-baseline justify-between gap-3">
-		<h2 class="text-2xl font-bold">{title}</h2>
+		<div class="flex flex-wrap items-baseline gap-x-3">
+			<h2 class="text-2xl font-bold">{title}</h2>
+			{rankByLocality && <LocalRanker client:load trackId={trackId} />}
+		</div>
 		<CarouselControls client:idle trackId={trackId} />
 	</div>
 
@@ -24,7 +34,13 @@ const { title, articles, trackId = "storyCarousel" } = Astro.props;
 	>
 		{
 			articles.map(article => (
-				<li class="w-[84%] shrink-0 snap-start sm:w-[46%] lg:w-[30%]">
+				<li
+					class="w-[84%] shrink-0 snap-start sm:w-[46%] lg:w-[30%]"
+					data-lat={String(article.lat)}
+					data-lon={String(article.lon)}
+					data-views={String(article.views)}
+					data-city={article.location}
+				>
 					<StoryCard article={article} />
 				</li>
 			))

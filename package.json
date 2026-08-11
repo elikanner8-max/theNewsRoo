@@ -11,9 +11,9 @@
 		"check": "astro check",
 		"astro": "astro",
 		"format": "prettier --write .",
-		"srv": "bun srv/index.ts",
-		"srv:dev": "bun --watch srv/index.ts",
-		"srv:migrate": "bun srv/migrate.ts"
+		"srv": "node srv/index.ts",
+		"srv:dev": "node --watch srv/index.ts",
+		"srv:seed": "node srv/seed.ts"
 	},
 	"dependencies": {
 		"@astrojs/react": "^6.0.2",
@@ -26,9 +26,7 @@
 		"react": "^19.2.8",
 		"react-dom": "^19.2.8",
 		"react-leaflet": "^5.0.0",
-		"react-simple-maps": "^3.0.0",
-		"sqlite3": "^6.0.1",
-		"us-atlas": "^3.0.1"
+		"react-simple-maps": "^3.0.0"
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.10",
@@ -38,10 +36,13 @@
 		"@types/react": "^19.2.18",
 		"@types/react-dom": "^19.2.4",
 		"@types/react-simple-maps": "^3.0.6",
+		"@types/topojson-client": "^3.1.5",
 		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "^0.14.1",
 		"tailwindcss": "^4.3.3",
-		"typescript": "^5.9.3"
+		"topojson-client": "^3.1.0",
+		"typescript": "^5.9.3",
+		"us-atlas": "^3.0.1"
 	},
 	"overrides": {
 		"react-simple-maps": {

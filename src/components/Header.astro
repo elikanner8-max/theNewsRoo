@@ -3,7 +3,7 @@ import Logo from "~/components/Logo.astro";
 import SearchField from "~/components/SearchField.astro";
 import MobileNav from "~/components/islands/MobileNav";
 import TodayDate from "~/components/islands/TodayDate";
-import { sectionsWithArticles } from "~/data/articles";
+import { sectionsWithArticles } from "~/lib/articles";
 
 const primaryLinks = [
 	{ href: "/", label: "Home" },
@@ -29,7 +29,7 @@ const isActive = (href: string) => {
 };
 
 const plainLink =
-	"font-ui text-sm whitespace-nowrap text-ink-soft transition-colors hover:text-ink";
+	"font-ui text-[0.65rem] font-semibold tracking-[0.14em] uppercase whitespace-nowrap text-ink-soft transition-colors hover:text-accent";
 
 const buildDateLabel = new Intl.DateTimeFormat("en-US", {
 	weekday: "long",
@@ -81,7 +81,7 @@ const buildDateLabel = new Intl.DateTimeFormat("en-US", {
 							"font-ui shrink-0 text-[0.65rem] font-semibold tracking-[0.14em] whitespace-nowrap uppercase transition-colors",
 							isActive(link.href)
 								? "text-accent"
-								: "text-muted hover:text-ink"
+								: "text-ink-soft hover:text-accent"
 						]}
 						href={link.href}
 						aria-current={isActive(link.href) ? "page" : undefined}

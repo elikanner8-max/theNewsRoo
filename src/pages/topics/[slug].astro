@@ -2,7 +2,7 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import Breadcrumbs from "~/components/Breadcrumbs.astro";
 import StoryCard from "~/components/StoryCard.astro";
-import { articlesInSection, sectionsWithArticles } from "~/data/articles";
+import { articlesInSection, sectionsWithArticles } from "~/lib/articles";
 
 export const getStaticPaths = () =>
 	sectionsWithArticles.map(section => ({

@@ -2,7 +2,7 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import Breadcrumbs from "~/components/Breadcrumbs.astro";
 import SearchApp from "~/components/islands/SearchApp";
-import { articles, sectionLabel, sectionsWithArticles } from "~/data/articles";
+import { articles, sectionLabel, sectionsWithArticles } from "~/lib/articles";
 
 const searchResults = articles.map(article => ({
 	slug: article.slug,

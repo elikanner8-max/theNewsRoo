@@ -1,23 +1,118 @@
-import express, { Application, Request, Response } from "express";
-import * as sqlite3 from "sqlite3";
+import express from "express";
+import cors from "cors";
+import {
+	openDatabase,
+	incrementArticleViews,
+	selectArticleBySlug,
+	selectArticlesInSection,
+	selectPublishedArticles
+} from "./db.ts";
 
-const app: Application = express();
-const port = 3000;
+const PORT = Number(process.env.PORT ?? 3001);
+const CORS_ORIGIN = process.env.CORS_ORIGIN ?? "http://localhost:4321";
 
-app.use(express.json());
+const db = openDatabase();
 
-const db = new sqlite3.Database("demo.db");
+const app = express();
+app.disable("x-powered-by");
+app.use(express.json({ limit: "64kb" }));
+app.use(cors({ origin: CORS_ORIGIN }));
 
-app.get("/articles", (req, res) => {
-	db.all("SELECT * FROM articles", (err, rows) => {
-		if (err) {
-			console.error(err);
+const toArticle = (row: {
+	slug: string;
+	name: string;
+	byline: string;
+	section: string;
+	desc: string | null;
+	keywords: string;
+	lat: number;
+	long: number;
+	placeLabel: string;
+	views: number;
+	timestamp: string;
+}) => ({
+	slug: row.slug,
+	title: row.name,
+	byline: row.byline,
+	section: row.section,
+	dek: row.desc ?? "",
+	keywords: row.keywords ? row.keywords.split(",") : [],
+	lat: row.lat,
+	lon: row.long,
+	placeLabel: row.placeLabel,
+	views: row.views,
+	publishedAt: row.timestamp
+});
+
+app.get("/health", (_req, res) => {
+	res.json({ status: "ok" });
+});
+
+app.get("/articles", (req, res, next) => {
+	try {
+		const section = req.query.section;
+		const rows =
+			typeof section === "string" && section.length > 0
+				? selectArticlesInSection(db, section)
+				: selectPublishedArticles(db);
+		res.json(rows.map(toArticle));
+	} catch (error) {
+		next(error);
+	}
+});
+
+app.get("/articles/:slug", (req, res, next) => {
+	try {
+		const row = selectArticleBySlug(db, req.params.slug);
+		if (!row) {
+			res.status(404).json({ error: "Not found" });
 			return;
 		}
-		res.json(rows);
-	});
+		res.json(toArticle(row));
+	} catch (error) {
+		next(error);
+	}
 });
 
-app.listen(port, () => {
-	console.log(`databse is running on http://localhost:${port}`);
+app.post("/articles/:slug/view", (req, res, next) => {
+	try {
+		const result = incrementArticleViews(db, req.params.slug);
+		if (!result) {
+			res.status(404).json({ error: "Not found" });
+			return;
+		}
+		res.json({ views: result.views });
+	} catch (error) {
+		next(error);
+	}
 });
+
+app.use((_req, res) => {
+	res.status(404).json({ error: "Not found" });
+});
+
+app.use(
+	(
+		error: Error,
+		_req: express.Request,
+		res: express.Response,
+		_next: express.NextFunction
+	) => {
+		console.error(error);
+		res.status(500).json({ error: "Internal server error" });
+	}
+);
+
+const server = app.listen(PORT, () => {
+	console.log(`api listening on http://localhost:${PORT}`);
+});
+
+const shutdown = () => {
+	server.close(() => {
+		db.close();
+		process.exit(0);
+	});
+};
+
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
