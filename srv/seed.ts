@@ -1,5 +1,5 @@
-import { migrate, openDatabase } from "./db.ts";
-import { stateForPoint } from "../src/lib/geo.ts";
+import { migrate, openDatabase } from "./db";
+import { stateForPoint } from "../src/lib/geo";
 
 interface SeedArticle {
 	slug: string;
