@@ -50,9 +50,41 @@ const readOrigin = (): [number, number] => {
 	}
 };
 
+export async function getLocation(): Promise<[number, number, string]> {
+	try {
+		const response = await fetch("https://geolocation-db.com/json/");
+		if (!response.ok) return [...readOrigin(), "unkown"];
+
+		const data = (await response.json()) as {
+			latitude?: number | string;
+			longitude?: number | string;
+			city?: string;
+		};
+
+		const lat = Number(data.latitude);
+		const lon = Number(data.longitude);
+		const city = String(data.city);
+
+		return Number.isFinite(lat) && Number.isFinite(lon)
+			? [lat, lon, city]
+			: [...readOrigin(), "unknown"];
+	} catch {
+		return [...readOrigin(), "unknown"];
+	}
+}
+
 const LocalRanker = ({ trackId }: LocalRankerProps) => {
 	const [nearestCity, setNearestCity] = useState<string | null>(null);
-
+	// Populate neasonously
+	useEffect(() => {
+		let mounted = true;
+		getLocation().then(([, , city]) => {
+			if (mounted) setNearestCity(city ?? null);
+		});
+		return () => {
+			mounted = false;
+		};
+	}, []);
 	useEffect(() => {
 		const track = document.getElementById(trackId);
 		if (!track) return;
@@ -100,3 +132,75 @@ const LocalRanker = ({ trackId }: LocalRankerProps) => {
 };
 
 export default LocalRanker;
+
+import type { Article } from "~/lib/articles";
+
+const MILES_PER_KILOMETER = 0.621371;
+
+type ArticleWithPublishedAt = Article & {
+	publishedAt?: string | Date;
+};
+
+export async function rankArticles(
+	articles: Article[],
+	maxDistanceMiles: number
+): Promise<Article[]> {
+	const [originLat, originLon, city] = await getLocation();
+	const origin: [number, number] = [originLat, originLon];
+
+	return articles
+		.map((article) => {
+			const lat = Number(article.lat);
+			const lon = Number(article.lon);
+
+			if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+				return null;
+			}
+
+			const distanceMiles =
+				distanceKm(origin, [lat, lon]) * MILES_PER_KILOMETER;
+
+			return {
+				article,
+				distanceMiles
+			};
+		})
+		.filter(
+			(
+				entry
+			): entry is {
+				article: Article;
+				distanceMiles: number;
+			} =>
+				entry !== null &&
+				entry.distanceMiles <= maxDistanceMiles
+		)
+		.sort((a, b) => {
+			// Nearest first.
+			const distanceDifference =
+				a.distanceMiles - b.distanceMiles;
+
+			if (distanceDifference !== 0) {
+				return distanceDifference;
+			}
+
+			const aPublished = new Date(
+				(a.article as ArticleWithPublishedAt).publishedAt ?? 0
+			).getTime();
+
+			const bPublished = new Date(
+				(b.article as ArticleWithPublishedAt).publishedAt ?? 0
+			).getTime();
+
+			// Most recent first.
+			const publishedDifference = bPublished - aPublished;
+
+			if (publishedDifference !== 0) {
+				return publishedDifference;
+			}
+
+			// Most views first.
+			return Number(b.article.views ?? 0) - Number(a.article.views ?? 0);
+		})
+		.map(({ article }) => article);
+}

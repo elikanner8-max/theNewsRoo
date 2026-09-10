@@ -8,12 +8,13 @@ import {
 	moreArticles,
 	secondaryArticles
 } from "~/lib/articles";
+import StoryHighlight from "~/components/StoryHighlight.astro";
 
 const carouselArticles = articles;
 ---
 
 <BaseLayout title="TheNewsRoo">
-	<StoryCarousel title="Local News" articles={carouselArticles} rankByLocality />
+	<StoryHighlight title="Top Stories" articles={carouselArticles.slice(0,4)} rankByLocality={false} />
 
 	<div class="section-block grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
 		<section>

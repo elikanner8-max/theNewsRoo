@@ -1,0 +1,39 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import StoryCard from "~/components/StoryCard.astro";
+import StoryCarousel from "~/components/StoryCarousel.astro";
+import {
+	articles,
+	latestArticles,
+	moreArticles,
+	secondaryArticles
+} from "~/lib/articles";
+import StoryHighlight from "~/components/StoryHighlight.astro";
+import { rankArticles } from "~/components/islands/LocalRanker";
+
+const carouselArticles = articles;
+const rankedArticles = await rankArticles(carouselArticles, 250);
+---
+
+<BaseLayout title="TheNewsRoo">
+	<StoryHighlight title="Freshest Local News" articles={rankedArticles.slice(0,4)} rankByLocality={true} />
+
+	<div class="section-block grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
+		<section>
+			<div class="flex flex-wrap items-baseline justify-between gap-3">
+				<h2 class="text-2xl font-bold">More from the newsroom</h2>
+			</div>
+
+		<ul class="mt-6 grid gap-x-8 gap-y-6 [grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr))]">
+			{
+				moreArticles.map(article => (
+					<li class="min-w-0">
+						<StoryCard article={article} variant="list" />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+			</div>
+
+</BaseLayout>

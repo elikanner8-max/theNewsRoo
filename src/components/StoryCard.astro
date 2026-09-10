@@ -24,7 +24,7 @@ const tileRatio = {
 }[variant];
 ---
 
-<article class="group flex flex-col gap-2.5">
+<article class="group flex min-w-0 flex-col gap-2.5">
 	{
 		variant !== "list" && (
 			<a href={href} tabindex="-1" aria-hidden="true" class="block">
@@ -37,8 +37,8 @@ const tileRatio = {
 		{sectionLabel(article.sectionSlug)}
 	</a>
 
-	<h3 class={`${titleSize} font-bold`}>
-		<a href={href} class="decoration-accent group-hover:underline">
+	<h3 class={`${titleSize} min-w-0 font-bold`}>
+		<a href={href} class="block min-w-0 decoration-accent group-hover:underline">
 			{article.title}
 		</a>
 	</h3>

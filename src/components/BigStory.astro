@@ -1,0 +1,63 @@
+---
+import Byline from "~/components/Byline.astro";
+import { sectionLabel, type Article } from "~/lib/articles";
+
+interface Props {
+	article: Article;
+	variant?: "lead" | "standard" | "list";
+}
+
+const { article, variant = "standard" } = Astro.props;
+const href = `/articles/${article.slug}`;
+const sectionHref = `/topics/${article.sectionSlug}`;
+
+const titleSize = {
+	lead: "text-3xl md:text-4xl",
+	standard: "text-xl",
+	list: "text-lg"
+}[variant];
+
+const tileRatio = {
+	lead: "aspect-[1/1] max-h-[20rem]",
+	standard: "aspect-[3/2]",
+	list: ""
+}[variant];
+---
+
+<article class="group flex flex-col gap-2.5">
+
+	<h3 class={`${titleSize} font-bold`}>
+		<a href={href} class="decoration-accent group-hover:underline">
+			{article.title}
+		</a>
+	</h3>
+
+	{
+		variant !== "list" && (
+			<p class="text-ink-soft text-lg">{"A curated description about the article and why it is featured, more info etc"}</p>
+		)
+	}
+	{
+		variant !== "list" && (
+			<p class="text-ink-soft max-w-prose fade-out">{"Some actual content from the article, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}</p>
+		)
+	}
+    	{
+		variant !== "list" && (
+			<a href={href} tabindex="-1" aria-hidden="true" class="block">
+				<span class={`placeholder-tile block w-full ${tileRatio}`} />
+			</a>
+		)
+	}
+
+
+	<Byline article={article} />
+</article>
+
+<style>
+.fade-out {
+	/* Fade out toward the bottom */
+	-webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+	mask-image: linear-gradient(180deg, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+}
+</style>

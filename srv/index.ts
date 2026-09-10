@@ -74,6 +74,13 @@ app.get("/articles/:slug", (req, res, next) => {
 	}
 });
 
+app.get("/location", (_req, res) => {  // TODO-Accounts: add actual location data
+	res.json({
+		lat:  42.340382, 
+		long: -72.496819
+	})
+})
+
 app.post("/articles/:slug/view", (req, res, next) => {
 	try {
 		const result = incrementArticleViews(db, req.params.slug);

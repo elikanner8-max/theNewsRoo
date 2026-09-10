@@ -9,8 +9,8 @@
 	--color-muted: #7a736a;
 	--color-line: rgb(25 23 20 / 0.12);
 	--color-line-strong: rgb(25 23 20 / 0.28);
-	--color-accent: #8b1e2d;
-	--color-gold: #8a6a2f;
+	--color-accent:  #8a6a2f;
+	--color-kicker: #8b1e2d;
 
 	--font-serif: Georgia, "Times New Roman", Times, serif;
 	--font-ui:
@@ -84,7 +84,7 @@
 	font-weight: 600;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	color: var(--color-gold);
+	color: var(--color-kicker);
 }
 
 @utility control {

@@ -1,0 +1,69 @@
+---
+
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import type { Article } from "~/lib/articles";
+import StoryCard from "~/components/StoryCard.astro";
+import BigStory from "./BigStory.astro";
+import LocalRanker from "./islands/LocalRanker";
+
+
+
+interface Props {
+	title: string;
+	articles: Article[];
+	trackId?: string;
+	rankByLocality?: boolean;
+}
+
+const {
+	title,
+	articles,
+	trackId = "storyCarousel",
+	rankByLocality,
+} = Astro.props;
+---
+
+<section aria-label={title}>
+
+	<div class="mt-6 flex gap-6 items-start">
+		
+		{/* Featured Article */}
+		<div class="show lg:block w-1/2">
+			<div class="flex flex-wrap items-baseline gap-x-3 md:mb-8">
+				<h2 class="text-2xl font-bold">{title}</h2>
+				{rankByLocality && <LocalRanker client:load trackId={trackId} />}
+			</div>
+			{articles[0] && (
+				<div
+					data-lat={String(articles[0].lat)}
+					data-lon={String(articles[0].lon)}
+					data-views={String(articles[0].views)}
+					data-city={articles[0].location}
+				>
+					<BigStory variant="lead" article={articles[0]} />
+				</div>
+			)}
+		</div>
+
+		{/* Article Grid */}
+		<ul
+			id={trackId}
+			class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 pb-1"
+		>
+			{
+				articles.map(article => (
+					<li
+						class="w-full"
+						data-lat={String(article.lat)}
+						data-lon={String(article.lon)}
+						data-views={String(article.views)}
+						data-city={article.location}
+					>
+						<StoryCard article={article} />
+					</li>
+				))
+			}
+		</ul>
+    </div>
+
+</section>

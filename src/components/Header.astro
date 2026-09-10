@@ -8,8 +8,10 @@ import { sectionsWithArticles } from "~/lib/articles";
 const primaryLinks = [
 	{ href: "/", label: "Home" },
 	{ href: "/map", label: "Map" },
-	{ href: "/search", label: "Search" },
-	{ href: "/submit", label: "Submit a story" }
+	{ href: "/404", label: "Videos" },
+	{ href: "/404", label: "Games"},
+	{ href: "/submit", label: "Submit a story" },
+	{ href: "/mylocal", label: "MyLocal" }
 ];
 
 const sectionLinks = sectionsWithArticles.map(section => ({
@@ -40,29 +42,52 @@ const buildDateLabel = new Intl.DateTimeFormat("en-US", {
 }).format(new Date());
 ---
 
+<script>
+	// TODO: make the hamburger close if it is open and the user clicks on part of the page outside of the menu
+	document.addEventListener("DOMContentLoaded", () => {
+		const hamburger = document.getElementById("header-hamburger");
+		const menu = document.getElementById("header-menu");
+		if (hamburger && menu) {
+			hamburger.addEventListener("click", () => {
+				menu.classList.toggle("hidden");
+			});
+		}
+	});
+</script>
+
 <header class="sticky top-0 z-30 border-b border-line bg-bg">
 	<div class="shell grid grid-cols-[auto_1fr_auto] items-center gap-4 py-1">
+		<button
+			id="header-hamburger"
+			class="flex flex-col gap-1 md:hidden"
+			aria-label="Menu"
+			aria-expanded="false"
+		>
+			<span class="block h-0.5 w-6 bg-ink-soft"></span>
+			<span class="block h-0.5 w-6 bg-ink-soft"></span>
+			<span class="block h-0.5 w-6 bg-ink-soft"></span>
+		</button>
+
 		<MobileNav
 			client:load
 			primaryLinks={primaryLinks}
 			sectionLinks={sectionLinks}
 		/>
 
-		<a class={`${plainLink} hidden md:inline`} href="/submit">Submit a story</a>
 
-		<div class="relative h-7">
+		<a>
 			<SearchField
-				class="absolute top-0 left-1/2 h-7 w-full max-w-[calc(100vw-3rem)] -translate-x-1/2 py-0 transition-all duration-200 focus-within:z-40 focus-within:h-10 focus-within:shadow-panel md:w-64 md:focus-within:w-[min(52rem,calc(100vw-3rem))]"
+				class=""
 			/>
-		</div>
+		</a>
 
-		<a
+		<!-- <a
 			class={`${plainLink} ${isActive("/map") ? "font-semibold text-ink" : ""}`}
 			href="/map"
 			aria-current={isActive("/map") ? "page" : undefined}
 		>
 			Map
-		</a>
+		</a> -->
 	</div>
 
 	<div class="shell flex justify-center py-1 my-4">
@@ -75,13 +100,13 @@ const buildDateLabel = new Intl.DateTimeFormat("en-US", {
 			aria-label="Categories"
 		>
 			{
-				sectionLinks.map(link => (
+				primaryLinks.map(link => (
 					<a
 						class:list={[
 							"font-ui shrink-0 text-[0.65rem] font-semibold tracking-[0.14em] whitespace-nowrap uppercase transition-colors",
 							isActive(link.href)
-								? "text-accent"
-								: "text-ink-soft hover:text-accent"
+								? "text-kicker"
+								: "text-ink-soft hover:text-kicker"
 						]}
 						href={link.href}
 						aria-current={isActive(link.href) ? "page" : undefined}

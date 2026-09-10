@@ -14,7 +14,7 @@ const MobileNav = ({ primaryLinks, sectionLinks }: MobileNavProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<div className="relative md:hidden">
+		<div className="relative md:show">
 			<button
 				type="button"
 				className={`control h-9 w-9 px-0 text-lg ${isOpen ? "control-active" : ""}`}
@@ -32,7 +32,7 @@ const MobileNav = ({ primaryLinks, sectionLinks }: MobileNavProps) => {
 					className="shadow-panel absolute top-[calc(100%+0.5rem)] left-0 z-40 w-64 rounded-[var(--radius-control)] border border-line bg-surface p-2"
 					aria-label="Site"
 				>
-					<a
+					{/* <a
 						className="control mb-2 w-full border-ink bg-ink text-bg"
 						href="/submit"
 					>
@@ -52,9 +52,9 @@ const MobileNav = ({ primaryLinks, sectionLinks }: MobileNavProps) => {
 									</a>
 								</li>
 							))}
-					</ul>
+					</ul> */}
 
-					<p className="kicker mt-3 border-t border-line px-3 pt-3">
+					<p className="kicker px-3 pt-3">
 						Categories
 					</p>
 
