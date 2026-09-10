@@ -71,6 +71,39 @@
 	}
 }
 
+@keyframes wordgame-shake {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	20% {
+		transform: translateX(-8px);
+	}
+	40% {
+		transform: translateX(8px);
+	}
+	60% {
+		transform: translateX(-6px);
+	}
+	80% {
+		transform: translateX(6px);
+	}
+}
+
+@keyframes wordgame-confetti-fall {
+	0% {
+		opacity: 0;
+		transform: translate3d(0, -20px, 0) rotate(0deg);
+	}
+	12% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: translate3d(var(--wordgame-drift, 0px), 175px, 0) rotate(620deg);
+	}
+}
+
 @utility shell {
 	width: 100%;
 	max-width: 78rem;
@@ -144,4 +177,17 @@
 
 @utility field-shell-focus {
 	border-color: var(--color-ink);
+}
+
+@utility wordgame-row-shake {
+	animation: wordgame-shake 260ms ease-in-out;
+}
+
+@utility wordgame-confetti-piece {
+	position: absolute;
+	top: 0;
+	border-radius: 2px;
+	animation-name: wordgame-confetti-fall;
+	animation-timing-function: cubic-bezier(0.23, 0.98, 0.42, 1);
+	animation-fill-mode: both;
 }

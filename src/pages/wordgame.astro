@@ -1,0 +1,22 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import wordgameGame from "~/components/islands/WordGame";
+---
+
+<BaseLayout
+	title="wordgame | TheNewsRoo"
+	description="Play wordgame in TheNewsRoo. Guess the five-letter word in six tries."
+>
+	<div class="mx-auto max-w-3xl">
+		<p class="kicker">Games</p>
+		<h1 class="mt-2 text-4xl">Daily Word Challenge</h1>
+		<p class="text-ink-soft mt-3 max-w-prose">
+			Guess the five-letter word in six attempts. Each guess updates the tile
+			colors to show how close you are.
+		</p>
+	</div>
+
+	<div class="mt-6">
+		<wordgameGame client:load />
+	</div>
+</BaseLayout>

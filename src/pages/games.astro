@@ -2,8 +2,13 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="TheNewsRoo">
-<a href="/wordgame">
-    word game
-</a>
+<BaseLayout title="Games | TheNewsRoo" description="Play games on TheNewsRoo.">
+    <section class="surface mx-auto max-w-2xl">
+        <p class="kicker">Games</p>
+        <h1 class="mt-2 text-3xl">Play wordgame</h1>
+        <p class="text-ink-soft mt-3">
+            Guess the hidden five-letter word in six tries.
+        </p>
+        <a class="control mt-5 inline-flex" href="/wordgame">Open wordgame</a>
+    </section>
 </BaseLayout>
