@@ -94,7 +94,7 @@ const buildDateLabel = new Intl.DateTimeFormat("en-US", {
 		<Logo size="lg" />
 	</div>
 
-	<div class="shell flex items-center gap-6 py-1">
+	<div class="shell flex items-center gap-6">
 		<nav
 			class="hidden flex-1 justify-between gap-x-4 overflow-x-auto md:flex [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
 			aria-label="Categories"
@@ -103,11 +103,12 @@ const buildDateLabel = new Intl.DateTimeFormat("en-US", {
 				primaryLinks.map(link => (
 					<a
 						class:list={[
-							"font-ui shrink-0 text-[0.65rem] font-semibold tracking-[0.14em] whitespace-nowrap uppercase transition-colors",
+							"font-ui shrink-0 inline-flex items-center border-[1.5px] border-line px-5 pl-6 pt-3 pr-6 text-[0.65rem] font-semibold tracking-[0.14em] whitespace-nowrap uppercase transition-colors",
 							isActive(link.href)
 								? "text-kicker"
 								: "text-ink-soft hover:text-kicker"
 						]}
+						style="margin-bottom: -1px; border-bottom-color: var(--color-bg);"
 						href={link.href}
 						aria-current={isActive(link.href) ? "page" : undefined}
 					>
